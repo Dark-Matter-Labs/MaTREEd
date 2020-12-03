@@ -1,0 +1,7 @@
+#container{
+  flex: 1;
+}
+
+#mapContainer {
+  height: 100vh;
+}
