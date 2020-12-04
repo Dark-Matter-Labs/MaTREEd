@@ -48,11 +48,37 @@ font-weight: bold;
   border-top: 1px solid transparent;
 }
 
-button.closeButton {
-  width: 100%;
+button.blueButton {
   border: none;
   background: #3388ff;
   color: white;
   padding: 15px;
   font-size: 16px;
+  font-weight: bold;
+}
+.closeButton{
+  width: 100%;
+}
+
+.pageName{
+  width: 100%;
+  padding: 10px;
+  background-color: #276f00;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 20px;
+}
+
+.linkButton {
+  right: 0px;
+  float: right;
+  position: absolute;
+  top: 0px;
+}
+
+.goToSimulator {
+  width: 100%;
+  margin-top:20px;
+  margin-bottom:20px;
 }
