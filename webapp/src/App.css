@@ -5,3 +5,47 @@
 #mapContainer {
   height: 100vh;
 }
+
+.tooltip{
+  width: 30%;
+  float: left;
+  text-align: center;
+  height: 100%;
+  transition: all 0.5s ease;
+  background-color: #f5f5f5;
+  position: absolute;
+  border-right: 1px solid #d2d2d2;
+  z-index: 999999;
+  color: #2e2e2e;
+  font-family: sans-serif;
+}
+
+.row {
+  flex: 1 1;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+.row:nth-child(even) {background: #CCC}
+.row:nth-child(odd) {background: #FFF}
+.row p {
+  padding: 8px;
+  text-align: left;
+}
+
+.singleRow {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #737373;
+  border-top: 1px solid #737373;
+}
+
+button.closeButton {
+  width: 100%;
+  border: none;
+  background: green;
+  color: white;
+  padding: 15px;
+  font-size: 16px;
+}

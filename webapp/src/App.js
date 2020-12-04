@@ -1,54 +1,106 @@
-import {useState, useRef} from 'react';
+import {useState} from 'react';
 import './App.css';
-import {MapContainer, TileLayer, GeoJSON, MapConsumer} from 'react-leaflet'
+import {MapContainer, TileLayer, GeoJSON} from 'react-leaflet'
 import data from './app_data/neighborhoods_madrid_stats.json'
 
 const madridCenter = [40.475, -3.70];
 
+
+const Tooltip = ({closeTooltip, style, properties}) =>{
+  // TOTAL TREE NUMBER = 100 (tree_tot)
+  // VALID TREE = 97% (tree_valid)
+  // N. of PERENNIFOLIO = 60 (perc_perennifolio)
+  // N. of CADUCIFOLIO = 40 (perc_caducifoli)
+  // TREE SPECIES
+  // acero (27%) - especie_1 (especie_1_perc)
+  // pinus (15%) - especie_2 (especie_2_perc)
+  // betulla (8%)- especie_3 (especie_3_perc)
+  // others (50%) - “others” (other_perc)
+  // C stock = x ton (sum_c_stock)
+  // C sequestr. = x ton/year (sum_c_seq)
+  
+  if(!properties){
+    return null
+  }
+  const {perc_caducifoli, perc_perennifolio, tree_valid, tree_tot,
+    especie_1_perc, especie_2_perc, especie_3_perc, other_perc
+  } = properties;
+
+  const treeData=[
+     ['TOTAL TREE NUMBER',tree_tot],
+     ['VALID TREE',tree_valid+'%'],
+     ['N. of PERENNIFOLIO',perc_perennifolio],
+     ['N. of CADUCIFOLIO',perc_caducifoli],
+  ]
+
+  const treeSpecies=[
+    ['acero ',especie_1_perc],
+    ['pinus',especie_2_perc],
+    ['betulla',especie_3_perc],
+    ['others',other_perc],
+ ]
+
+  return(
+    <div style={style} className='tooltip'>
+        <div className='singleRow'>
+          <p>TREE DATA</p>
+        </div>
+      {treeData.map(([name,val])=>(
+        <div className='row'>
+          <p>{name}</p>
+          <p>{val}</p>
+        </div>
+      ))}
+        <div className='singleRow'>
+          <p>TREE SPECIES</p>
+        </div>
+        {treeSpecies.map(([name,val])=>(
+        <div className='row'>
+          <p>{name}</p>
+          <p>{val}%</p>
+        </div>
+      ))}
+    <button className='closeButton' onClick={closeTooltip}>Close</button>
+    </div>
+  )
+}
+
 const App = ()=> {
-
-
-  const [currentJSON, setCurrentJSON]= useState(data)
-  const currentJSONRef = useRef(null)
-
-
+  const [tooltipVisible, setTooltipVisible] = useState(false)
+  const [properties, setProperties]= useState(null)
+  const [layerH, setLayerH]= useState(null)
+  const left = tooltipVisible?'0px':'-100%';
   return (
   <div id='container'>
+    
+     <Tooltip 
+     properties={properties}
+     style={{ left: left}}
+     closeTooltip={()=>setTooltipVisible(false)}>
+    </Tooltip>
+
     <MapContainer id='mapContainer' center={madridCenter} zoom={11} scrollWheelZoom={false}>
-    <MapConsumer>
-        {(map) => {
-      return(
-         <>
+   
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <GeoJSON 
-          ref={currentJSONRef}
           onEachFeature={ layer => {}}
           eventHandlers={{
             click: async(e) => {
               console.log('marker clicked', e.layer.feature)
-
-              const CODBARRIO = e.layer.feature.properties.CODBARRIO;
-              const fileName = `./app_data/trees_neighbours/T_CODBARRIO_${CODBARRIO}.json`;
-
-              fetch(fileName)
-                .then(res=>res.json())
-                .then(data=>{
-                  setCurrentJSON(data)
-                  if(currentJSONRef.current){
-                    const bounds = currentJSONRef.current.getBounds()
-                    console.log(bounds)
-                    map.fitBounds(bounds)
-                  }
-                });
+              setProperties(e.layer.feature.properties)
+              setLayerH(e.layer.feature)
+              setTooltipVisible(true)
             },
           }}
-          key={currentJSON.name} data={currentJSON} />
-          </>
-        )}}
-      </MapConsumer>
+          key={'madrid'} data={data} />
+          {tooltipVisible && layerH && (
+            <GeoJSON 
+            pathOptions={{color:'red'}}
+            key={layerH.properties.NOMBRE} data={layerH} />
+          )}
     </MapContainer>
   </div>
   )
