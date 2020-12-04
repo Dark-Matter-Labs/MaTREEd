@@ -22,15 +22,16 @@ const Tooltip = ({closeTooltip, style, properties}) =>{
   if(!properties){
     return null
   }
-  const {perc_caducifoli, perc_perennifolio, tree_valid, tree_tot,
-    especie_1_perc, especie_2_perc, especie_3_perc, other_perc
+  const {perc_caducifolio, perc_perennifolio, tree_valid, tree_tot,
+    especie_1_perc, especie_2_perc, especie_3_perc, other_perc,
+    sum_c_stock, sum_c_seq
   } = properties;
 
   const treeData=[
      ['TOTAL TREE NUMBER',tree_tot],
      ['VALID TREE',tree_valid+'%'],
-     ['N. of PERENNIFOLIO',perc_perennifolio],
-     ['N. of CADUCIFOLIO',perc_caducifoli],
+     ['Perc. of PERENNIFOLIO',perc_perennifolio],
+     ['Perc. of CADUCIFOLIO',perc_caducifolio],
   ]
 
   const treeSpecies=[
@@ -40,6 +41,10 @@ const Tooltip = ({closeTooltip, style, properties}) =>{
     ['others',other_perc],
  ]
 
+ const carbonInfo=[
+  ['C stock ',sum_c_stock],
+  ['C sequestr.',sum_c_seq],
+]
   return(
     <div style={style} className='tooltip'>
         <div className='singleRow'>
@@ -59,8 +64,18 @@ const Tooltip = ({closeTooltip, style, properties}) =>{
           <p>{name}</p>
           <p>{val}%</p>
         </div>
+        ))}
+       <div className='singleRow'>
+          <p>CARBON INFO</p>
+        </div>
+          {carbonInfo.map(([name,val])=>(
+          <div className='row'>
+            <p>{name}</p>
+            <p>{val}%</p>
+          </div>
       ))}
     <button className='closeButton' onClick={closeTooltip}>Close</button>
+    {/* <button className='simulatorButton' onClick={()=>window.open('Simulator')}>Open Simulator</button> */}
     </div>
   )
 }
