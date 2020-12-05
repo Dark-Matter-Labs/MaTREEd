@@ -12,33 +12,37 @@ const Tooltip = ({closeTooltip, style, properties}) =>{
     return null
   }
   const {perc_caducifolio, perc_perennifolio, tree_valid, tree_tot,
-    especie_1_perc, especie_2_perc, especie_3_perc, other_perc,
+    especie_1, especie_1_perc, 
+    especie_2, especie_2_perc,
+    especie_3, especie_3_perc,
+    other_perc,
     sum_c_stock, sum_c_seq,
     CODBARRIO,
+    NOMBRE,
   } = properties;
 
   const treeData=[
-     ['TOTAL TREE NUMBER',tree_tot],
-     ['VALID TREE',tree_valid+'%'],
-     ['Perc. of PERENNIFOLIO',perc_perennifolio],
-     ['Perc. of CADUCIFOLIO',perc_caducifolio],
+     ['TREES COUNT',tree_tot],
+     ['VALID TREE RECORDS',tree_valid+'%'],
+     ['EVERGREEN',perc_perennifolio+'%'],
+     ['DECIDUOUS',perc_caducifolio+'%'],
   ]
 
   const treeSpecies=[
-    ['acero ',especie_1_perc],
-    ['pinus',especie_2_perc],
-    ['betulla',especie_3_perc],
+    [ especie_1,especie_1_perc],
+    [ especie_2,especie_2_perc],
+    [ especie_3,especie_3_perc],
     ['others',other_perc],
  ]
 
  const carbonInfo=[
-  ['C stock ',sum_c_stock],
-  ['C sequestr.',sum_c_seq],
+  ['CO2 stock ', Math.round(sum_c_stock*100)/100+' Kg'],
+  ['CO2 sequestration',Math.round(sum_c_seq*100)/100+' Kg/y'],
 ]
   return(
     <div style={style} className='tooltip'>
         <div className='singleRow'>
-          <p>TREE DATA</p>
+          <p>{NOMBRE}</p>
         </div>
       {treeData.map(([name,val])=>(
         <div className='row'>
@@ -56,17 +60,17 @@ const Tooltip = ({closeTooltip, style, properties}) =>{
         </div>
         ))}
        <div className='singleRow'>
-          <p>CARBON INFO</p>
+          <p>CO2 PERFORMANCE</p>
         </div>
           {carbonInfo.map(([name,val])=>(
           <div className='row'>
             <p>{name}</p>
-            <p>{val}%</p>
+            <p>{val}</p>
           </div>
       ))}
-    <Link to={`/simulator?id=${CODBARRIO}`}>
+    {/* <Link to={`/simulator?id=${CODBARRIO}`}>
       <button className='blueButton goToSimulator'>View in Simulator</button>
-    </Link>
+    </Link> */}
     <button className='blueButton closeButton' onClick={closeTooltip}>Close</button>
     
     </div>
