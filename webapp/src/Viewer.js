@@ -109,7 +109,7 @@ const Legend = ({ legendValue, setLegendValue }) => {
       <div className="legendTitle">{legendItem}</div>
       {colorMap?.map((item, index) => (
         <p>
-          <div className="legendVal">{item[1]?item[0]:`0-${colorMap[index-1][0]}`}</div>
+          <div className="legendVal">{item[1]?`>${item[0]}`:`0-${colorMap[index-1][0]}`}</div>
           <div className="legendColor" style={{ backgroundColor: item[1] }} />
         </p>
       ))}
