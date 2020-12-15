@@ -3,7 +3,10 @@ import "./App.css";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import data from "./app_data/neighborhoods_madrid_stats.json";
 import { Link } from "react-router-dom";
+import legends from "./static/legends";
+
 const madridCenter = [40.475, -3.7];
+
 
 const Tooltip = ({ closeTooltip, style, properties }) => {
   if (!properties) {
@@ -24,26 +27,26 @@ const Tooltip = ({ closeTooltip, style, properties }) => {
     sum_c_stock,
     sum_c_seq,
     CODBARRIO,
-    NOMBRE
+    NOMBRE,
   } = properties;
 
   const treeData = [
     ["TREES COUNT", tree_tot],
     ["VALID TREE RECORDS", tree_valid + "%"],
     ["EVERGREEN", perc_perennifolio + "%"],
-    ["DECIDUOUS", perc_caducifolio + "%"]
+    ["DECIDUOUS", perc_caducifolio + "%"],
   ];
 
   const treeSpecies = [
     [especie_1, especie_1_perc],
     [especie_2, especie_2_perc],
     [especie_3, especie_3_perc],
-    ["others", other_perc]
+    ["others", other_perc],
   ];
 
   const carbonInfo = [
-    ["CO2 stock ", Math.round(sum_c_stock * 100) / 100 + " Kg"],
-    ["CO2 sequestration", Math.round(sum_c_seq * 100) / 100 + " Kg/y"]
+    ["CO₂ stock ", Math.round(sum_c_stock * 100) / 100 + " Kg"],
+    ["CO₂ sequestration", Math.round(sum_c_seq * 100) / 100 + " Kg/y"],
   ];
   return (
     <div style={style} className="tooltip">
@@ -66,7 +69,7 @@ const Tooltip = ({ closeTooltip, style, properties }) => {
         </div>
       ))}
       <div className="singleRow">
-        <p>CO2 PERFORMANCE</p>
+        <p>CO₂ PERFORMANCE</p>
       </div>
       {carbonInfo.map(([name, val]) => (
         <div className="row">
@@ -85,91 +88,57 @@ const Tooltip = ({ closeTooltip, style, properties }) => {
 };
 
 const Legend = ({ legendValue, setLegendValue }) => {
-  //   Titolo Mappa (nome campo)
+  const legendItem = legends?.[legendValue]?.label;
+  const colorMap = legends?.[legendValue]?.colorMap;
 
-  const legends = [
-    // ["Trees density [trees/Km2]", "tot_trees_n"],
-    // ["Mean trees trunk perimeter [m]", "avg_perimetro"],
-    // ["Mean trees height [m]", "avg_altura"],
-    // ["Mean trees canopy diameter [m]", "avg_diametro_copa"],
-    // ["Trees canopy coverage [area %]", "tree_cover"],
-    ["CO2 stock [Kg/Km2]", "sum_c_stock"],
-    ["CO2 sequestration [Kg/y/Km2]", "sum_c_stock_n"]
-  ];
-
-
-  const legendItem = legends.find(item=>item[1]===legendValue)
+  //   colorMap:   [[300000, "#800026"],
+  //   [200000, "#BD0026"],
+  //   [250000, "#E31A1C"],
+  //   [200000, "#FC4E2A"],
+  //   [100000, "#FD8D3C"],
+  //   [50000, "#FEB24C"],
+  //   [20000, ,"#FED976"],
+  //   ["#FFEDA0"]],
+  // },
 
   return (
     <div className="legendContainer">
-      <p>Legend - {legendItem?.[0]} </p>
-      <p>
-        <div className='legendVal'>> 200000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#800026" }}
-        />
-      </p>
-      <p>
-        <div className='legendVal'>> 250000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#BD0026" }}
-        />
-      </p>
-      <p>
-      <div className='legendVal'>> 200000</div>
-      <div className='legendColor'
-       style={{ backgroundColor: "#E31A1C" }} />
-      </p>
-      <p>
-        <div className='legendVal'>> 100000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#FC4E2A" }}
-        />
-      </p>
-      <p>
-        <div className='legendVal'>> 50000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#FD8D3C" }}
-        />
-      </p>
-      <p>
-        <div className='legendVal'>> 20000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#FEB24C" }}
-        />
-      </p>
-      <p>
-        <div className='legendVal'>0-20000</div>
-        <div className='legendColor'
-          style={{ backgroundColor: "#FED976" }}
-        />
-      </p>
-      <div>Other legends</div>
-      {legends.map(item=> item[1]!==legendValue &&  (
-        <div className='otherLegend' onClick={()=>setLegendValue(item[1])}>
-          {item[0]}
-        </div>
+      <div>
+        <h2>MAPS</h2>
+      </div>
+      <div className="legendTitle">{legendItem}</div>
+      {colorMap?.map((item, index) => (
+        <p>
+          <div className="legendVal">{item[1]?item[0]:`0-${colorMap[index-1][0]}`}</div>
+          <div className="legendColor" style={{ backgroundColor: item[1] }} />
+        </p>
       ))}
+
+
+      {Object.entries(legends).map(
+        (item) =>
+          item[1] !== legendValue && (
+            <div
+              className="legendTitle otherLegend"
+              onClick={() => setLegendValue(item[0])}
+            >
+              {item[0]}
+            </div>
+          )
+      )}
     </div>
   );
 };
 
-function getColor(d) {
-  return d > 300000
-    ? "#800026"
-    : d > 200000
-    ? "#BD0026"
-    : d > 250000
-    ? "#E31A1C"
-    : d > 200000
-    ? "#FC4E2A"
-    : d > 100000
-    ? "#FD8D3C"
-    : d > 50000
-    ? "#FEB24C"
-    : d > 20000
-    ? "#FED976"
-    : "#FFEDA0";
+function getColorForLegend(val, colorMap) {
+  console.log(colorMap);
+  if (!colorMap) {
+    return;
+  }
+
+  const colorItem = colorMap.find((item) => val > item[0]);
+  console.log(colorItem);
+  return colorItem?.[1] ? colorItem[1] : colorMap[colorMap.length - 1][0];
 }
 
 const App = () => {
@@ -179,14 +148,14 @@ const App = () => {
   const [layerH, setLayerH] = useState(null);
   const left = tooltipVisible ? "0px" : "-100%";
 
-  const getStyle = ( val) =>({
-    fillColor: getColor(val),
-        weight: 2,
-        opacity: 1,
-        color: "white",
-        dashArray: "3",
-        fillOpacity: 0.7
-  })
+  const getStyle = (val, colorMap) => ({
+    fillColor: getColorForLegend(val, colorMap),
+    weight: 2,
+    opacity: 1,
+    color: "white",
+    dashArray: "3",
+    fillOpacity: 0.7,
+  });
 
   return (
     <div id="container">
@@ -214,17 +183,22 @@ const App = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <GeoJSON
-          style={feature=>getStyle(feature.properties[legendValue])}
-          onEachFeature={layer => {}}
+          style={(feature) =>
+            getStyle(
+              feature.properties[legendValue],
+              legends?.[legendValue]?.colorMap
+            )
+          }
+          onEachFeature={(layer) => {}}
           eventHandlers={{
-            click: async e => {
+            click: async (e) => {
               console.log("marker clicked", e.layer.feature);
               setProperties(e.layer.feature.properties);
               setLayerH(e.layer.feature);
               setTooltipVisible(true);
-            }
+            },
           }}
-          key={"madrid"+legendValue}
+          key={"madrid" + legendValue}
           data={data}
         />
         {tooltipVisible && layerH && (

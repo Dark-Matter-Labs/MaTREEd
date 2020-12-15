@@ -36,7 +36,10 @@
   background: #fff;
 }
 .row p {
-  padding: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top:4px;
+  padding-bottom:4px;
   text-align: left;
 }
 .row p:nth-child(even) {
@@ -95,6 +98,7 @@ button.blueButton {
   right: 0;
   background-color: rgba(255,255,255,0.85);
   padding: 10px;
+  max-height: 100%;
 }
 
 .legendColor {
@@ -102,10 +106,14 @@ button.blueButton {
   height: 20px;
   position: relative;
 }
-.otherLegend {
+
+.legendTitle {
   padding: 4px;
   background-color: #296f01;
   color: white;
   margin: 2px;
   border-radius: 2px;
+}
+.otherLegend {
+  background-color: #498725;
 }
