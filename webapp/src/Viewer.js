@@ -7,7 +7,6 @@ import legends from "./static/legends";
 
 const madridCenter = [40.475, -3.7];
 
-
 const Tooltip = ({ closeTooltip, style, properties }) => {
   if (!properties) {
     return null;
@@ -91,38 +90,28 @@ const Legend = ({ legendValue, setLegendValue }) => {
   const legendItem = legends?.[legendValue]?.label;
   const colorMap = legends?.[legendValue]?.colorMap;
 
-  //   colorMap:   [[300000, "#800026"],
-  //   [200000, "#BD0026"],
-  //   [250000, "#E31A1C"],
-  //   [200000, "#FC4E2A"],
-  //   [100000, "#FD8D3C"],
-  //   [50000, "#FEB24C"],
-  //   [20000, ,"#FED976"],
-  //   ["#FFEDA0"]],
-  // },
-
   return (
     <div className="legendContainer">
       <div>
         <h2>MAPS</h2>
       </div>
       <div className="legendTitle">{legendItem}</div>
-      {colorMap?.map((item, index) => (
+      {colorMap?.map((item, index) =>(
         <p>
-          <div className="legendVal">{item[1]?`>${item[0]}`:`0-${colorMap[index-1][0]}`}</div>
-          <div className="legendColor" style={{ backgroundColor: item[1] }} />
+          <div className="legendVal">
+            {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
+          </div>
+          <div className="legendColor" style={{ backgroundColor: item[1]||item[0] }} />
         </p>
       ))}
-
-
       {Object.entries(legends).map(
         (item) =>
-          item[1] !== legendValue && (
+          item[0] !== legendValue && (
             <div
               className="legendTitle otherLegend"
               onClick={() => setLegendValue(item[0])}
             >
-              {item[0]}
+              {item[1].label}
             </div>
           )
       )}
@@ -131,14 +120,13 @@ const Legend = ({ legendValue, setLegendValue }) => {
 };
 
 function getColorForLegend(val, colorMap) {
-  console.log(colorMap);
   if (!colorMap) {
     return;
   }
 
   const colorItem = colorMap.find((item) => val > item[0]);
-  console.log(colorItem);
-  return colorItem?.[1] ? colorItem[1] : colorMap[colorMap.length - 1][0];
+  
+  return (colorItem && colorItem[1]) ? colorItem[1] : colorMap[colorMap.length - 1][1];
 }
 
 const App = () => {
@@ -148,14 +136,15 @@ const App = () => {
   const [layerH, setLayerH] = useState(null);
   const left = tooltipVisible ? "0px" : "-100%";
 
-  const getStyle = (val, colorMap) => ({
-    fillColor: getColorForLegend(val, colorMap),
-    weight: 2,
-    opacity: 1,
-    color: "white",
-    dashArray: "3",
-    fillOpacity: 0.7,
-  });
+  const getStyle = (val, colorMap) =>
+    ({
+      fillColor: getColorForLegend(val, colorMap),
+      weight: 2,
+      opacity: 1,
+      color: "white",
+      dashArray: "3",
+      fillOpacity: 0.7,
+    });
 
   return (
     <div id="container">
