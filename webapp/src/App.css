@@ -88,6 +88,7 @@ button.blueButton {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
+  background: #f05624 !important;
 }
 
 .legendContainer {
@@ -116,4 +117,16 @@ button.blueButton {
 }
 .otherLegend {
   background-color: #498725;
+}
+.simulator {
+  transition: all 0.5s ease;
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  background: white;
+  text-align: center;
+  overflow: scroll;
+  z-index: 999999;
+  border: 1px solid #f2efe9;
+  left: 30%;
 }

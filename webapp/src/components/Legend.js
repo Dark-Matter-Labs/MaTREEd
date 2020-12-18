@@ -1,0 +1,51 @@
+import legends from "../static/legends";
+
+const Legend = ({ legendValue, setLegendValue }) => {
+  const legendItem = legends?.[legendValue]?.label;
+  const colorMap = legends?.[legendValue]?.colorMap;
+
+  return (
+    <div className="legendContainer">
+      <div>
+        <h2>MAPS</h2>
+      </div>
+      <div className="legendTitle">{legendItem}</div>
+      {colorMap?.map((item, index) => (
+        <p>
+          <div className="legendVal">
+            {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
+          </div>
+          <div
+            className="legendColor"
+            style={{ backgroundColor: item[1] || item[0] }}
+          />
+        </p>
+      ))}
+      {Object.entries(legends).map(
+        (item) =>
+          item[0] !== legendValue && (
+            <div
+              className="legendTitle otherLegend"
+              onClick={() => setLegendValue(item[0])}
+            >
+              {item[1].label}
+            </div>
+          )
+      )}
+    </div>
+  );
+};
+
+const getColorForLegend = (val, colorMap) => {
+  if (!colorMap) {
+    return;
+  }
+  const colorItem = colorMap.find((item) => val > item[0]);
+
+  return colorItem && colorItem[1]
+    ? colorItem[1]
+    : colorMap[colorMap.length - 1][1];
+};
+
+export { getColorForLegend };
+export default Legend;
