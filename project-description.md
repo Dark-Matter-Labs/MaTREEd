@@ -36,17 +36,17 @@ To be used in MaTREEd web application, the datasets of trees and neighbourhoods 
 
 2. The datasets of trees and neighbourhoods in Madrid are spatially joined in order to add the neighbourhood information to each tree. This allows to compute the following tree summary statistics – corresponding to the maps shown in the web application – for each neighbourhood, as follows:
 
-  * Tree density [trees/km2] (`tree_density`): number of trees per km2
-  * Mean tree trunk girth [m] (`mean_trunk_girth`): mean value of the `trunk girth` of the available trees
-  * Mean tree height [m] (`mean_tree_height`): mean value of the `height` of the available trees
-  * Mean tree canopy diameter [m] (`mean_crown_diameter`): mean value of the `crown_diameter` of the available trees
-  * Tree canopy coverage [%] (`tree_coverage`): percentage of the neighbourhood area covered by trees, computed as `mean_crown_diameter*𝜋/neighbourhood_area`, where `neighbourhood area` is the area of the neighbourhood
-  * Fractions of deciduous and evergreen trees [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
-  * Tree species (`tree_species`): the percentages of occurrence of the three most popular tree species, and the percentage of occurrence of all the other tree species (considered together)
+  * **Tree density** [trees/km2] (`tree_density`): number of trees per km2
+  * **Mean tree trunk girth** [m] (`mean_trunk_girth`): mean value of the `trunk girth` of the available trees
+  * **Mean tree height** [m] (`mean_tree_height`): mean value of the `height` of the available trees
+  * **Mean tree canopy diameter** [m] (`mean_crown_diameter`): mean value of the `crown_diameter` of the available trees
+  * **Tree canopy coverage** [%] (`tree_coverage`): percentage of the neighbourhood area covered by trees, computed as `mean_crown_diameter*𝜋/neighbourhood_area`, where `neighbourhood area` is the area of the neighbourhood
+  * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
+  * **Tree species** (`tree_species`): the percentages of occurrence of the three most popular tree species, and the percentage of occurrence of all the other tree species (considered together)
 
 3. The tree carbon stock and sequestration rate for each neighbourhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighbourhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the tree diameter (`diameter`), the `trunk_girth` and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
 
-* CO<sub>2</sub> stock [Kg] (`stock`):
+* **CO<sub>2</sub> stock** [Kg] (`stock`):
 
 ```
 if senescence == PERENNIFOLIO
@@ -57,7 +57,7 @@ if senescence == CADUCIFOLIO
 
 where `0.5` is the fraction of the average carbon content on the tree’s dry weight total volume and `3.67` is the ratio of CO<sub>2</sub> to C (`44/12 = 3.67`) (see [here](https://www.ecomatcher.com/how-to-calculate-co2-sequestration/)). These equations are presented and explained in [this scientific paper](https://www.fs.fed.us/psw/publications/mcpherson/psw_2011_mcpherson009.pdf). 
 
-* CO<sub>2</sub> sequestration [Kg/y] (`sequestration`): 
+* **CO<sub>2</sub> sequestration** [Kg/y] (`sequestration`): 
 
 ```
 diameter_t0 = (trunk_girth_t0/𝜋)*100
