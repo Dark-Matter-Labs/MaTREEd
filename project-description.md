@@ -44,7 +44,7 @@ To be used in MaTREEd web application, the datasets of trees and neighbourhoods 
   * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
   * **Tree species** (`tree_species`): the percentages of occurrence of the three most popular tree species, and the percentage of occurrence of all the other tree species (considered together)
 
-3. The tree carbon stock and sequestration rate for each neighbourhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighbourhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the tree diameter (`diameter`), the `trunk_girth` and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
+3. The tree carbon stock and sequestration rate for each neighbourhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighbourhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the `trunk_girth`, the tree diameter (`diameter`, computed as `trunk_girth/𝜋`) and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
 
 * **CO<sub>2</sub> stock** [Kg] (`stock`):
 
@@ -55,7 +55,7 @@ if senescence == CADUCIFOLIO
     stock = (0.035702*((trunk_girth/𝜋)*100)^2.580671)*0.5*3.67
 ```
 
-where `0.5` is the fraction of the average carbon content on the tree’s dry weight total volume and `3.67` is the ratio of CO<sub>2</sub> to C (`44/12 = 3.67`) (see [here](https://www.ecomatcher.com/how-to-calculate-co2-sequestration/)). These equations are presented and explained in [this scientific paper](https://www.fs.fed.us/psw/publications/mcpherson/psw_2011_mcpherson009.pdf). 
+where `0.5` is the fraction of the average carbon content on the tree’s dry weight total volume and `3.67` is the ratio of CO<sub>2</sub> to C (`44/12 = 3.67`) (see [here](https://www.ecomatcher.com/how-to-calculate-co2-sequestration/)); the multiplier `100` is used because the calculation assumes that the value of `trunk_girth/𝜋`, i.e. `diameter`, is expressed in cm. These equations are presented and explained in [this scientific paper](https://www.fs.fed.us/psw/publications/mcpherson/psw_2011_mcpherson009.pdf). 
 
 * **CO<sub>2</sub> sequestration** [Kg/y] (`sequestration`): 
 
