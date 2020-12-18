@@ -44,7 +44,7 @@ To be used in MaTREEd web application, the datasets of trees and neighbourhoods 
   * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
   * **Tree species** (`tree_species`): the percentages of occurrence of the three most popular tree species, and the percentage of occurrence of all the other tree species (considered together)
 
-3. The tree carbon stock and sequestration rate for each neighbourhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighbourhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the `trunk_girth`, the tree diameter (`diameter`, computed as `trunk_girth/𝜋`) and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
+3. The tree carbon stock and annual sequestration rate for each neighbourhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighbourhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the `trunk_girth`, the tree diameter (`diameter`, computed as `trunk_girth/𝜋`) and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
 
 * **CO<sub>2</sub> stock** [Kg] (`stock`):
 
@@ -71,6 +71,30 @@ For each neighbourhood, the absolute values of `stock` and `sequestration` are f
 
 
 ## Webapp <a name="webapp"></a>
+
+As mentioned in the [Introduction] section, the MaTREEd web application acts as a tree information system for Madrid neighbourhoods offering two main functions: i) visualization of the results achieved by applying the methodology described above, which depicts the current situation in Madrid in terms of carbon stock and sequestration rate; and ii) simulation of the increase in the carbon stock and sequestration rate, in any user-defined scenario where a certain number of trees with specific characteristics are added in a neighbourhood.
+
+The interface of the web application consists of a main map viewer and a layer menu on the right side. The map viewer displays the layer selected in the layer menu (only one layer at a time) on top of the OpenStreetMap basemap. When selected, the layers available in the layer menu show various thematic maps according to the values of the tree summary statistics computed in step 2 of the [Methodology](#methodology) section for each neighbourhood, i.e. `tree_density`, `mean_trunk_girth`, `mean_height`, `mean_height`, `mean_crown_diameter` and `tree_coverage`. From the layer menu, the maps of areal carbon stock and areal sequestration rate for each neighbourhood, i.e. `areal_stock` and `areal_sequestration`, respectively, are also available. Each of the seven thematic maps is accompanied by its own legend displaying the quantitative intervals of the classes depicted in the map. The selected layer is automatically moved at the top of the layer tree.
+
+When a neighbourhood is clicked on the map, a table appears on the left side of the interface showing additional information on that neighbourhood. This includes the total number of available trees (`trees_count`), the number of valid tree records (i.e. the number of records remaining after cleaning, see step 1 of the [Methodology](#methodology) section), the fractions of deciduous and evergreen trees (`fraction_deciduous` and `fraction_evergreen`, respectively), the percentages of occurrence of the three most popular tree species and of the other species (`tree_species`), and the absolute values of carbon stock and sequestration rate (`stock` and `sequestration`, respectively). 
+
+QUI METTERE SCREENSHOT DEL VIEWER
+
+At the bottom of the table, a _Close_ button closes the table while a _Run simulation_ button opens a new dialogue allowing MaTREEd users to simulate how much the carbon stock and sequestration rate in the selected neighbourhood increase when new trees are planted. In detail, users can arbitrarily define the number of conifer and/or broadleaf trees to plant and their `diameter`. Using the equations available in step 3 of the [Methodology](#methodology) section, the additional carbon stock (`delta_stock`) and sequestration rate (`delta_sequestration`) contributed by the new trees are computed, and the total (simulated) carbon stock (`final_stock`) and sequestration rate (`final_sequestration`) for the neighbourhood are computed as the sum of the current ones (`current_stock` and `current_sequestration`) and additional ones:
+
+```
+final_stock = current_stock + delta_stock
+final_sequestration = current_sequestration + delta_sequestration
+```
+
+Finally, the percentage of increase of carbon stock (`increase_stock`) and sequestration rate (`increase_sequestration`) are computed as:
+
+```
+increase_stock = delta_stock/current_stock*100
+increase_sequestration = delta_sequestration/current_sequestration*100
+```
+
+QUI METTERE SCREENSHOT DEI RISULTATI DELLA SIMULAZIONE
 
 
 
