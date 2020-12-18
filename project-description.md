@@ -38,7 +38,7 @@ To be used in MaTREEd web application, the datasets of trees and neighbourhoods 
 
   * **Tree density** [trees/km2] (`tree_density`): number of trees per km2
   * **Mean tree trunk girth** [m] (`mean_trunk_girth`): mean value of the `trunk girth` of the available trees
-  * **Mean tree height** [m] (`mean_tree_height`): mean value of the `height` of the available trees
+  * **Mean tree height** [m] (`mean_height`): mean value of the `height` of the available trees
   * **Mean tree canopy diameter** [m] (`mean_crown_diameter`): mean value of the `crown_diameter` of the available trees
   * **Tree canopy coverage** [%] (`tree_coverage`): percentage of the neighbourhood area covered by trees, computed as `mean_crown_diameter*𝜋/neighbourhood_area`, where `neighbourhood area` is the area of the neighbourhood
   * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
@@ -66,6 +66,8 @@ sequestration = stock(t1) - stock(t0)
 ```
 
 where `diameter_t0` and `diameter_t1` are the initial diameter of the tree and the diameter of the tree after one year, respectively; `trunk_girth_t0` is the initial trunk girth of the tree; and `stock(t1)` and `stock(t0)` are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of `trunk_girth`. The equation models the annual growth of the diameter of a tree and is derived from [this scientific paper](https://iforest.sisef.org/contents/?id=ifor0635-005).
+
+For each neighbourhood, the absolute values of `stock` and `sequestration` are finally divided by the area to obtain the **areal CO<sub>2</sub> stock** [Kg/km2] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km2] (`areal_sequestration`).
 
 
 ## Webapp <a name="webapp"></a>
