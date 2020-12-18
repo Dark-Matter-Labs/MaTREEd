@@ -36,7 +36,7 @@ To be used in MaTREEd web application, the datasets of trees and neighborhoods i
 
 2. The datasets of trees and neighborhoods in Madrid are spatially joined in order to add the neighborhood information to each tree. This allows to compute the following tree summary statistics – corresponding to the maps shown in the web application (see the [Webapp](#webapp) section) – for each neighborhood, as follows:
 
-  * **Tree density** [trees/km2] (`tree_density`): number of trees per km2
+  * **Tree density** [trees/km<sup>2</sup>] (`tree_density`): number of trees per km<sup>2</sup>
   * **Mean tree trunk girth** [m] (`mean_trunk_girth`): mean value of the `trunk girth` of the available trees
   * **Mean tree height** [m] (`mean_height`): mean value of the `height` of the available trees
   * **Mean tree canopy diameter** [m] (`mean_crown_diameter`): mean value of the `crown_diameter` of the available trees
@@ -67,7 +67,7 @@ sequestration = stock(t1) - stock(t0)
 
 where `diameter_t0` and `diameter_t1` are the initial diameter of the tree and the diameter of the tree after one year, respectively; `trunk_girth_t0` is the initial trunk girth of the tree; and `stock(t1)` and `stock(t0)` are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of `trunk_girth`. The equation models the annual growth of the diameter of a tree and is derived from [this scientific paper](https://iforest.sisef.org/contents/?id=ifor0635-005).
 
-For each neighborhood, the absolute values of `stock` and `sequestration` are finally divided by the area to obtain the **areal CO<sub>2</sub> stock** [Kg/km2] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km2] (`areal_sequestration`).
+For each neighborhood, the absolute values of `stock` and `sequestration` are finally divided by the area to obtain the **areal CO<sub>2</sub> stock** [Kg/km<sup>2</sup>] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km<sup>2</sup>] (`areal_sequestration`).
 
 
 ## Webapp <a name="webapp"></a>
