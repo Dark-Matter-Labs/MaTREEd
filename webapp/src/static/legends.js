@@ -1,6 +1,6 @@
 const legends = {
     tree_tot_n: {
-      label: "Trees density [trees/Km2]",
+      label: "Tree density [tree/km²]",
       colorMap:[
          [24011, '#00441b'],
          [7156, '#2a924a'],
@@ -10,7 +10,7 @@ const legends = {
       ]
     },
     avg_trunk_girth: {
-      label: "Mean trees trunk girth [m]",
+      label: "Mean tree trunk girth [m]",
       colorMap:[
         [0.943, '#a6611a'],
         [0.751, '#dfc27d'],
@@ -20,7 +20,7 @@ const legends = {
       ]
     },
     avg_height: {
-      label: "Mean trees height [m]",
+      label: "Mean tree height [m]",
       colorMap:[
         [11.6, '#bd0026'],
         [9.18, '#f03b20'],
@@ -30,7 +30,7 @@ const legends = {
       ]
     },
     avg_crown_diameter: {
-      label: "Mean trees canopy diameter [m]",
+      label: "Mean tree canopy diameter [m]",
       colorMap:[
         [7.26, '#810f7c'],
         [5.61, '#8856a7'],
@@ -40,7 +40,7 @@ const legends = {
       ]
     },
     tree_cover: {
-      label: "Trees canopy coverage [area %]",
+      label: "Tree canopy coverage [area %]",
       colorMap:[
         [23.4, '#006837'],
         [11.8, '#31a354'],
@@ -50,7 +50,7 @@ const legends = {
       ]
     },
     sum_c_stock: {
-      label: "CO₂ stock [Kg/Km2]",
+      label: "CO₂ stock [kg/km²]",
       colorMap: [
         [243345, '#440154'],
         [51895, '#3a528b'],
@@ -60,7 +60,7 @@ const legends = {
       ],
     },
     sum_c_stock_n: {
-      label: "CO₂ sequestration [Kg/y/Km2]",
+      label: "CO₂ sequestration [kg/y/km²]",
       colorMap: [
         [38781, '#d7191c'],
         [8479, '#fdae61'],

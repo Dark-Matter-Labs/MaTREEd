@@ -1,46 +1,163 @@
+import { useState, useEffect } from "react";
+const Simulator = ({ visible, onClose, properties }) => {
+  const [coniferNumber, setConiferNumber] = useState(0);
+  const [broadleafNumber, setBroadleafNumber] = useState(0);
 
-const Simulator = ({visible, onClose, properties}) =>{
-    if (!properties) {
-        return null;
+  const [coniferCm, setConiferCm] = useState(null);
+  const [broadleafCm, setBroadleafCm] = useState(null);
+
+  const [sequestration, setSequestration] = useState(null);
+  
+  const changeConiferNumber = (event) => {
+    const value = Number(event.target.value) || null;
+    if (Number.isInteger(value) || value === null) {
+      setConiferNumber(value);
+    }
+  };
+  const changeBroadleafNumber = (event) => {
+    const value = Number(event.target.value) || null;
+    if (Number.isInteger(value) || value === null) {
+      setBroadleafNumber(value);
+    }
+  };
+
+  const changeConiferCm = (event) => {
+    const value = Number(event.target.value) || null;
+    if (Number.isInteger(value) || value === null) {
+      setConiferCm(value);
+    }
+  };
+  const changeBroadleafCm = (event) => {
+    const value = Number(event.target.value) || null;
+    if (Number.isInteger(value) || value === null) {
+      setBroadleafCm(value);
+    }
+  };
+
+  const simulate = () => {
+    const get_co2 = (senescence, cm) => {
+      if (!senescence || !cm) {
+        return 0;
       }
-    const {
-        tree_valid,
-        tree_tot,
-        sum_c_stock,
-        sum_c_seq,
-        NOMBRE,
-      } = properties;
+      if (senescence == "broadleaf") {
+        return 0.16155 * Math.pow(cm, 2.310647) * 0.5 * 3.67;
+      }
+      if (senescence == "conifer") {
+        return 0.035702 * Math.pow(cm, 2.580671) * 0.5 * 3.67;
+      }
+    };
+    const co2_initial_conifer = get_co2("conifer", coniferCm) * coniferNumber;
+    const co2_initial_broadleaf =
+      get_co2("broadleaf", broadleafCm) * broadleafNumber;
 
-const simulate = ()=>{};
+    const co2_initial = co2_initial_conifer + co2_initial_broadleaf;
 
-    return (
-        <div className='simulator' style={{height: visible?'400px':'0px'}}>
-             <div className="singleRow">
-                <p>Simulator - {NOMBRE}</p>
-            </div>
-            <button className="blueButton" onClick={onClose}>
+    const get_t1 = (diameter_t0) => {
+      if (!diameter_t0) {
+        return 0;
+      }
+      return diameter_t0 + (-0.5425 + 0.3189 * Math.log(diameter_t0));
+    };
+    const co2_final_conifer =
+      get_co2("conifer", get_t1(coniferCm)) * coniferNumber;
+
+    const co2_final_broadleaf =
+      get_co2("broadleaf", get_t1(broadleafCm)) * broadleafNumber;
+
+    const co2_final = co2_final_conifer + co2_final_broadleaf;
+
+    const sequestrationValue = co2_final - co2_initial;
+
+    return Math.round(sequestrationValue*1000)/1000;
+    //     Current CO2 stock [kg] (quello che mostriamo già nel Viewer, in basso a sinistra)
+    // Additional simulated CO2 stock [kg] (somma tra quello al giorno d'oggi e la somma di tutti i CO2 stock iniziali dei nuovi alberi)
+    // Total simulated CO2 stock [kg] (somma dei precedenti 2)
+    // Current CO2 sequestration [kg/y]  (quello che mostriamo già nel Viewer, in basso a sinistra)
+    // Additional simulated CO2 sequestration [kg/y] (questo numero deriva dal calcolo sopra [*])
+    // Total simulated CO2 sequestration (somma dei precedenti due)
+  };
+
+  useEffect(() => {
+    const sequestrationValue = simulate();
+    if(sequestrationValue){
+    setSequestration(sequestrationValue);
+    }
+  }, [coniferNumber, broadleafNumber, coniferCm, broadleafCm]);
+
+  if (!properties) {
+    return null;
+  }
+
+  const { tree_valid, tree_tot, sum_c_stock, sum_c_seq, NOMBRE } = properties;
+
+  return (
+    <div className="simulator" style={{ height: visible ? "400px" : "0px" }}>
+      <div>
+        <div className="singleRow">
+          <p>Simulator - {NOMBRE}</p>
+        </div>
+
+        <table class="greenRows">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Number</th>
+              <th>Diameter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Conifer</td>
+              <td>
+                <input
+                  type="number"
+                  placeholder="number"
+                  name="coniferNumber"
+                  value={coniferNumber}
+                  onChange={changeConiferNumber}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  placeholder="cm"
+                  name="coniferDiameter"
+                  value={coniferCm}
+                  onChange={changeConiferCm}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Broadleaf</td>
+              <td>
+                <input
+                  type="number"
+                  placeholder="number"
+                  name="broadleafNumber"
+                  value={broadleafNumber}
+                  onChange={changeBroadleafNumber}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  placeholder="cm"
+                  name="broadlefDiameter"
+                  value={broadleafCm}
+                  onChange={changeBroadleafCm}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {sequestration && !isNaN(sequestration) && (
+        <p className='sequestration'>Sequestration: {sequestration}</p>
+      )}
+      <button className="blueButton" onClick={onClose}>
         Close
       </button>
-        </div>
-    )
-
-}
+    </div>
+  );
+};
 export default Simulator;
-//details https://github.com/GISdevio/MaTREEd/blob/main/project-description.md#methodology
-/**
- * The tree carbon stock and annual sequestration rate for each neighborhood are computed as the sum of the CO2 stocked and the CO2 sequestration rate contributed by each single tree available in the neighborhood. In turn, these are computed using simplified allometric equations based on the trunk_girth, the tree diameter (diameter, computed as trunk_girth/𝜋) and the value of the senescence attribute - distinguishing between deciduous trees (value CADUCIFOLIO) and evergreen trees (value PERENNIFOLIO) - as follows:
-CO2 stock [Kg] (stock):
-if senescence == PERENNIFOLIO
-    stock = (0.16155*((trunk_girth/𝜋)*100)^2.310647)*0.5*3.67
-if senescence == CADUCIFOLIO
-    stock = (0.035702*((trunk_girth/𝜋)*100)^2.580671)*0.5*3.67
-where 0.5 is the fraction of the average carbon content on the tree’s dry weight total volume and 3.67 is the ratio of CO2 to C (44/12 = 3.67) (see here); the multiplier 100 is used because the calculation assumes that the value of trunk_girth/𝜋, i.e. diameter, is expressed in cm. These equations are presented and explained in this scientific paper.
-
-CO2 sequestration [Kg/y] (sequestration):
-diameter_t0 = (trunk_girth_t0/𝜋)*100
-diameter_t1 = diameter_t0 + (-0.5425 + 0.3189*ln((trunk_girth_t0/𝜋)*100))
-sequestration = stock(t1) - stock(t0)
-where diameter_t0 and diameter_t1 are the initial diameter of the tree and the diameter of the tree after one year, respectively; trunk_girth_t0 is the initial trunk girth of the tree; and stock(t1) and stock(t0) are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of trunk_girth. The equation models the annual growth of the diameter of a tree and is derived from this scientific paper.
-
-For each neighborhood, the absolute values of stock and sequestration are finally divided by the area to obtain the areal CO2 stock [Kg/km2] (areal_stock) and the areal CO2 sequestration [Kg/y/km2] (areal_sequestration).
- */

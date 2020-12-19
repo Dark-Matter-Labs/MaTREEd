@@ -10,17 +10,19 @@ const Legend = ({ legendValue, setLegendValue }) => {
         <h2>MAPS</h2>
       </div>
       <div className="legendTitle">{legendItem}</div>
-      {colorMap?.map((item, index) => (
-        <p>
-          <div className="legendVal">
-            {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
-          </div>
-          <div
-            className="legendColor"
-            style={{ backgroundColor: item[1] || item[0] }}
-          />
-        </p>
-      ))}
+      <div className="selectedLegend">
+        {colorMap?.map((item, index) => (
+          <p>
+            <div className="legendVal">
+              {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
+            </div>
+            <div
+              className="legendColor"
+              style={{ backgroundColor: item[1] || item[0] }}
+            />
+          </p>
+        ))}
+      </div>
       {Object.entries(legends).map(
         (item) =>
           item[0] !== legendValue && (
