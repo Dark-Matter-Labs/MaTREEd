@@ -77,7 +77,7 @@ sequestration = stock(t1) - stock(t0)
 
 where `diameter_t0` and `diameter_t1` are the initial diameter of the tree and the diameter of the tree after one year, respectively; `trunk_girth_t0` is the initial trunk girth of the tree; and `stock(t1)` and `stock(t0)` are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of `trunk_girth`. The equation models the annual growth of the diameter of a tree and is derived from [this scientific paper](https://iforest.sisef.org/contents/?id=ifor0635-005).
 
-For each neighborhood, the absolute values of `stock` and `sequestration` are finally divided by the area to obtain the **areal CO<sub>2</sub> stock** [Kg/km<sup>2</sup>] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km<sup>2</sup>] (`areal_sequestration`).
+For each neighborhood, the values of `stock` and `sequestration` for all the available trees are summed to obtain the total values. These values are finally divided by the area of the neighborhood to obtain the **areal CO<sub>2</sub> stock** [Kg/km<sup>2</sup>] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km<sup>2</sup>] (`areal_sequestration`).
 
 
 ## Webapp <a name="webapp"></a>
