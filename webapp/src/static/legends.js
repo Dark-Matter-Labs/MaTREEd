@@ -1,6 +1,6 @@
 const legends = {
     tree_tot_n: {
-      label: "Tree density [tree/km²]",
+      label: "Tree density [trees/km²]",
       colorMap:[
          [7566, '#00441b'],
          [4090, '#2a924a'],

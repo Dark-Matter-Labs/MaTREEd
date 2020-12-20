@@ -10,7 +10,7 @@ import legends from "./static/legends";
 const madridCenter = [40.475, -3.7];
 
 const App = () => {
-  const [legendValue, setLegendValue] = useState("sum_c_stock");
+  const [legendValue, setLegendValue] = useState("sum_c_stock_n");
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [properties, setProperties] = useState(null);
   const [layerH, setLayerH] = useState(null);
@@ -59,7 +59,6 @@ const App = () => {
               legends?.[legendValue]?.colorMap
             )
           }
-          onEachFeature={(layer) => {}}
           eventHandlers={{
             click: async (e) => {
               setProperties(e.layer.feature.properties);

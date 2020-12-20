@@ -3,6 +3,7 @@ import legends from "../static/legends";
 const Legend = ({ legendValue, setLegendValue }) => {
   const legendItem = legends?.[legendValue]?.label;
   const colorMap = legends?.[legendValue]?.colorMap;
+  const len = legends?.[legendValue]?.colorMap.length;
 
   return (
     <div className="legendContainer">
@@ -14,11 +15,11 @@ const Legend = ({ legendValue, setLegendValue }) => {
         {colorMap?.map((item, index) => (
           <div key={index}>
             <div className="legendVal">
-              {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
+              {`${colorMap[len-index + 1-1]?.[0] || 0}-${colorMap[len-index-1][0]}`}
             </div>
             <div
               className="legendColor"
-              style={{ backgroundColor: item[1] || item[0] }}
+              style={{ backgroundColor: colorMap[len-index-1][1] || item[0] }}
             />
           </div>
         ))}

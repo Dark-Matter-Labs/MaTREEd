@@ -168,6 +168,11 @@ const Simulator = ({ visible, onClose, properties }) => {
             <p className='resultVal'>{Math.round(sum_c_stock+co2Initial)} kg</p>
             </div>
             <div className="row">
+            <p className='resultName'>Increase of CO₂ stock</p>
+            <p className='resultVal'>{Math.round(co2Initial/sum_c_stock * 100 *1000)/1000} %</p>
+            </div>
+            
+            <div className="row">
             <p className='resultName'>Current CO₂ sequestration</p>
             <p className='resultVal'>{Math.round(sum_c_seq)} kg/y</p>
              </div>
@@ -179,10 +184,21 @@ const Simulator = ({ visible, onClose, properties }) => {
             <p className='resultName'>Total simulated CO₂ sequestration</p>
             <p className='resultVal'>{Math.round(sequestration+sum_c_seq)} kg/y</p>
             </div>
+            <div className="row">
+            <p className='resultName'>Increase of CO₂ sequestration</p>
+            <p className='resultVal'>{Math.round(sequestration/sum_c_seq*100*1000)/1000} %</p>
+            </div>
         </div>
       )}
       <button className="blueButton" onClick={
-          ()=>{onClose(); setSequestration(null)}
+          ()=>{onClose(); 
+            setConiferNumber(0);
+            setBroadleafNumber(0);
+            setCo2Initial(0);
+            setConiferCm('');
+            setBroadleafCm('');
+            setSequestration(null);
+        }
       }
         >
         Close
