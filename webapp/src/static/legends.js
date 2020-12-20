@@ -2,11 +2,11 @@ const legends = {
     tree_tot_n: {
       label: "Tree density [tree/km²]",
       colorMap:[
-         [24011, '#00441b'],
-         [7156, '#2a924a'],
-         [4656, '#7bc87c'],
-         [3188, '#caeac3'],
-         [2161, '#f7fcf5'],
+         [7566, '#00441b'],
+         [4090, '#2a924a'],
+         [3147, '#7bc87c'],
+         [2473, '#caeac3'],
+         [1761, '#f7fcf5'],
       ]
     },
     avg_trunk_girth: {
