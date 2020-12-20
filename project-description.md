@@ -88,7 +88,7 @@ The interface of the web application consists of a main map viewer and a layer m
 
 When a neighborhood is clicked on the map, a table appears on the left side of the interface showing additional information on that neighborhood. This includes the total number of available trees (`trees_count`), the number of valid tree records (i.e. the number of records remaining after cleaning, see step 1 of the [Methodology](#methodology) section), the fractions of deciduous and evergreen trees (`fraction_deciduous` and `fraction_evergreen`, respectively), the percentages of occurrence of the three most popular tree species and of the other species (`tree_species`), and the absolute values of carbon stock and sequestration rate (`stock` and `sequestration`, respectively). 
 
-QUI METTERE SCREENSHOT DEL VIEWER
+![MaTREEd_viewer](https://github.com/GISdevio/MaTREEd/blob/main/documentation/MaTREEd_viewer.png?raw=true)
 
 At the bottom of the table, a _Close_ button closes the table while a _Run simulation_ button opens a new dialogue allowing MaTREEd users to simulate how much the carbon stock and sequestration rate in the selected neighborhood increase when new trees are planted. In detail, users can arbitrarily define the number of evergreen and/or deciduous trees to plant and their `diameter`. Using the equations available in step 3 of the [Methodology](#methodology) section, the additional carbon stock (`delta_stock`) and sequestration rate (`delta_sequestration`) contributed by the new trees are computed, and the total (simulated) carbon stock (`final_stock`) and sequestration rate (`final_sequestration`) for the neighborhood are computed as the sum of the current ones (`current_stock` and `current_sequestration`) and additional ones:
 
@@ -104,7 +104,7 @@ increase_stock = delta_stock/current_stock*100
 increase_sequestration = delta_sequestration/current_sequestration*100
 ```
 
-QUI METTERE SCREENSHOT DI ESEMPIO RISULTATI DELLA SIMULAZIONE
+![MaTREEd_simulator](https://github.com/GISdevio/MaTREEd/blob/main/documentation/MaTREEd_simulator.png?raw=true)
 
 
 ## Conclusions <a name="conclusions"></a>
