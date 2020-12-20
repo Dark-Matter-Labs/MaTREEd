@@ -50,7 +50,7 @@ const legends = {
       ]
     },
     sum_c_stock_n: {
-      label: "CO₂ stock [kg/km²]",
+      label: "CO₂ areal stock [kg/km²]",
       colorMap: [
         [4040511, '#440154'],
         [1516593, '#3a528b'],
@@ -60,7 +60,7 @@ const legends = {
       ],
     },
     sum_c_seq_n: {
-      label: "CO₂ sequestration [kg/y/km²]",
+      label: "CO₂ areal sequestration [kg/y/km²]",
       colorMap: [
         [152135, '#d7191c'],
         [61540, '#fdae61'],
