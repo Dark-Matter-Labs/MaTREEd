@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/MaTREEd/static/css/main.9f2e684c.chunk.css",
-    "main.js": "/MaTREEd/static/js/main.5bdafa5c.chunk.js",
-    "main.js.map": "/MaTREEd/static/js/main.5bdafa5c.chunk.js.map",
+    "main.css": "/MaTREEd/static/css/main.77b204f5.chunk.css",
+    "main.js": "/MaTREEd/static/js/main.31f8d59c.chunk.js",
+    "main.js.map": "/MaTREEd/static/js/main.31f8d59c.chunk.js.map",
     "runtime-main.js": "/MaTREEd/static/js/runtime-main.ab2ad65a.js",
     "runtime-main.js.map": "/MaTREEd/static/js/runtime-main.ab2ad65a.js.map",
     "static/js/2.b554149f.chunk.js": "/MaTREEd/static/js/2.b554149f.chunk.js",
     "static/js/2.b554149f.chunk.js.map": "/MaTREEd/static/js/2.b554149f.chunk.js.map",
     "index.html": "/MaTREEd/index.html",
-    "static/css/main.9f2e684c.chunk.css.map": "/MaTREEd/static/css/main.9f2e684c.chunk.css.map",
+    "static/css/main.77b204f5.chunk.css.map": "/MaTREEd/static/css/main.77b204f5.chunk.css.map",
     "static/js/2.b554149f.chunk.js.LICENSE.txt": "/MaTREEd/static/js/2.b554149f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ab2ad65a.js",
     "static/js/2.b554149f.chunk.js",
-    "static/css/main.9f2e684c.chunk.css",
-    "static/js/main.5bdafa5c.chunk.js"
+    "static/css/main.77b204f5.chunk.css",
+    "static/js/main.31f8d59c.chunk.js"
   ]
 }
