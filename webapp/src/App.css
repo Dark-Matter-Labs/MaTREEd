@@ -91,8 +91,7 @@ button.blueButton {
 
 .legendContainer {
   position: absolute;
-  width: 15%;
-  min-width: 250px;
+  width: 25%;
   z-index: 99999;
   right: 0;
   background-color: rgba(255,255,255,0.85);
@@ -120,14 +119,15 @@ button.blueButton {
 .simulator {
   transition: all 0.5s ease;
   position: absolute;
-  height: 300px;
-  width: 400px;
+  height: 100%;
   background: white;
   text-align: center;
   overflow: scroll;
   z-index: 999999;
   border: 1px solid #f2efe9;
-  left: 30%;
+  width:45%;
+  left: 45%;
+  transform: translateX(-45%);
 }
 
 .disclaimer{
@@ -151,7 +151,6 @@ table.greenRows {
   height: 200px;
   text-align: center;
   border-collapse: collapse;
-  margin-bottom: 30px;
   margin-top:30px;
 }
 table.greenRows td, table.greenRows th {
@@ -162,7 +161,7 @@ table.greenRows tr:nth-child(even) {
   background: #CCCCCC;
 }
 table.greenRows thead {
-  background: #40A428;
+  background: #296f01;
   border-bottom: 1px solid #ccc;
 }
 table.greenRows thead th {
@@ -188,4 +187,17 @@ td {
   background: #ccc;
   border-bottom: 1px solid white;
   border-right: 1px solid white;
+}
+
+.resultName{
+text-align: left;
+margin-bottom:20px;
+}
+.resultVal{
+  font-weight: bold;
+}
+.resultName p {
+  float: left;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }

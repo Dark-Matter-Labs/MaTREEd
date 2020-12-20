@@ -34,8 +34,8 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
   ];
 
   const carbonInfo = [
-    ["CO₂ stock ", Math.round(sum_c_stock * 100) / 100 + " Kg"],
-    ["CO₂ sequestration", Math.round(sum_c_seq * 100) / 100 + " Kg/y"],
+    ["CO₂ stock ", Math.round(sum_c_stock)+ " kg"],
+    ["CO₂ sequestration", Math.round(sum_c_seq)+ " kg/y"],
   ];
   return (
     <div style={style} className="tooltip">
@@ -43,7 +43,7 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>{NOMBRE}</p>
       </div>
       {treeData.map(([name, val]) => (
-        <div className="row">
+        <div className="row" key={name}>
           <p>{name}</p>
           <p>{val}</p>
         </div>
@@ -52,7 +52,7 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>TREE SPECIES</p>
       </div>
       {treeSpecies.map(([name, val]) => (
-        <div className="row">
+        <div className="row" key={name}>
           <p>{name}</p>
           <p>{val}%</p>
         </div>
@@ -61,15 +61,15 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>CO₂ PERFORMANCE</p>
       </div>
       {carbonInfo.map(([name, val]) => (
-        <div className="row">
+        <div className="row" key={name}>
           <p>{name}</p>
           <p>{val}</p>
         </div>
       ))}
 
       <p className="disclaimer">
-        carbon computation are based on approximate equations for demonstration
-        purpose only. Results are not intend for analytical purposes
+        Carbon computation are based on approximate equations for demonstration
+        purpose only. Results are not intended for analytical purposes.
       </p>
       <button className="blueButton goToSimulator" onClick={openSimulator}>
         Run Simulation

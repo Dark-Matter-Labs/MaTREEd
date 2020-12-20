@@ -12,7 +12,7 @@ const Legend = ({ legendValue, setLegendValue }) => {
       <div className="legendTitle">{legendItem}</div>
       <div className="selectedLegend">
         {colorMap?.map((item, index) => (
-          <p>
+          <div key={index}>
             <div className="legendVal">
               {`${colorMap[index][0]}-${colorMap[index + 1]?.[0] || 0}`}
             </div>
@@ -20,13 +20,14 @@ const Legend = ({ legendValue, setLegendValue }) => {
               className="legendColor"
               style={{ backgroundColor: item[1] || item[0] }}
             />
-          </p>
+          </div>
         ))}
       </div>
       {Object.entries(legends).map(
         (item) =>
           item[0] !== legendValue && (
             <div
+              key={item[1].label}
               className="legendTitle otherLegend"
               onClick={() => setLegendValue(item[0])}
             >

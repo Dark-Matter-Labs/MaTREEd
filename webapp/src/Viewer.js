@@ -62,7 +62,6 @@ const App = () => {
           onEachFeature={(layer) => {}}
           eventHandlers={{
             click: async (e) => {
-              console.log("marker clicked", e.layer.feature);
               setProperties(e.layer.feature.properties);
               setLayerH(e.layer.feature);
               setTooltipVisible(true);
