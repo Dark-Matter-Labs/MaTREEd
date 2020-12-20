@@ -42,7 +42,7 @@ To be used in MaTREEd web application, the datasets of trees and neighborhoods i
 1. Through a sequence of pre-processing steps, the dataset of trees in Madrid is cleaned by:
 
   * removing all the features (trees) having NaN values for the attributes `senescence`, `crown_diameter`, `height` and `trunk_girth`, which are the attributes used for computing the neighborhood statistics and the tree carbon indicators (see below); 
-  * removing coarse outliers by filtering out extreme values for the attributes `crown_diameter`, `height` and `trunk_girth` using percentiles;
+  * removing coarse outliers by filtering out extreme values for the attributes `crown_diameter`, `height` and `trunk_girth` using percentiles.
 
 2. The datasets of trees and neighborhoods in Madrid are spatially joined in order to add the neighborhood information to each tree. This allows to compute the following tree summary statistics – corresponding to the maps shown in the web application (see the [Webapp](#webapp) section) – for each neighborhood, as follows:
 
@@ -51,12 +51,12 @@ To be used in MaTREEd web application, the datasets of trees and neighborhoods i
   * **Mean tree height** [m] (`mean_height`): mean value of the `height` of the available trees
   * **Mean tree canopy diameter** [m] (`mean_crown_diameter`): mean value of the `crown_diameter` of the available trees
   * **Tree canopy coverage** [%] (`tree_coverage`): percentage of the neighborhood area covered by trees, computed as `mean_crown_diameter*𝜋/neighborhood_area`, where `neighborhood area` is the area of the neighborhood
-  * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`).
+  * **Fractions of deciduous and evergreen trees** [%] (`fraction_deciduous`) and (`fraction_evergreen`): percentage of deciduous and evergreen trees of the total number of available trees (`trees_count`)
   * **Tree species** (`tree_species`): the percentages of occurrence of the three most popular tree species, and the percentage of occurrence of all the other tree species (considered together)
 
-3. The tree carbon stock and annual sequestration rate for each neighborhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighborhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the `trunk_girth`, the tree diameter (`diameter`, computed as `trunk_girth/𝜋`) and the value of the `senescence` attribute - distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) - as follows:
+3. The tree carbon stock and annual sequestration rate for each neighborhood are computed as the sum of the CO<sub>2</sub> stocked and the CO<sub>2</sub> sequestration rate contributed by each single tree available in the neighborhood. In turn, these are computed using simplified [allometric equations](https://en.wikipedia.org/wiki/Tree_allometry) based on the `trunk_girth`, the tree diameter (`diameter`, computed as `trunk_girth/𝜋`) and the value of the `senescence` attribute – distinguishing between deciduous trees (value `CADUCIFOLIO`) and evergreen trees (value `PERENNIFOLIO`) – as follows:
 
-* **CO<sub>2</sub> stock** [Kg] (`stock`):
+* **CO<sub>2</sub> stock** [kg] (`stock`):
 
 ```
 if senescence == PERENNIFOLIO
@@ -67,7 +67,7 @@ if senescence == CADUCIFOLIO
 
 where `0.5` is the fraction of the average carbon content on the tree’s dry weight total volume and `3.67` is the ratio of CO<sub>2</sub> to C (`44/12 = 3.67`) (see [here](https://www.ecomatcher.com/how-to-calculate-co2-sequestration/)); the multiplier `100` is used because the calculation assumes that the value of `trunk_girth/𝜋`, i.e. `diameter`, is expressed in cm. These equations are presented and explained in [this scientific paper](https://www.fs.fed.us/psw/publications/mcpherson/psw_2011_mcpherson009.pdf). 
 
-* **CO<sub>2</sub> sequestration** [Kg/y] (`sequestration`): 
+* **CO<sub>2</sub> sequestration** [kg/y] (`sequestration`): 
 
 ```
 diameter_t0 = (trunk_girth_t0/𝜋)*100
@@ -75,14 +75,14 @@ diameter_t1 = diameter_t0 + (-0.5425 + 0.3189*ln((trunk_girth_t0/𝜋)*100))
 sequestration = stock(t1) - stock(t0)
 ```
 
-where `diameter_t0` and `diameter_t1` are the initial diameter of the tree and the diameter of the tree after one year, respectively; `trunk_girth_t0` is the initial trunk girth of the tree; and `stock(t1)` and `stock(t0)` are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of `trunk_girth`. The equation models the annual growth of the diameter of a tree and is derived from [this scientific paper](https://iforest.sisef.org/contents/?id=ifor0635-005).
+where `diameter_t0` and `diameter_t1` are the initial diameter of the tree and the diameter of the tree after one year (both expressed in cm), respectively; `trunk_girth_t0` is the initial trunk girth of the tree; and `stock(t1)` and `stock(t0)` are the initial tree carbon stock and the tree carbon stock after one year, which are computed through the equation above using the initial value and the value after one year of `trunk_girth`. The equation models the annual growth of the diameter of a tree and is derived from [this scientific paper](https://iforest.sisef.org/contents/?id=ifor0635-005).
 
-For each neighborhood, the values of `stock` and `sequestration` for all the available trees are summed to obtain the total values. These values are finally divided by the area of the neighborhood to obtain the **areal CO<sub>2</sub> stock** [Kg/km<sup>2</sup>] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [Kg/y/km<sup>2</sup>] (`areal_sequestration`).
+For each neighborhood, the values of `stock` and `sequestration` for all the available trees are summed to obtain the total values. These values are finally divided by the area of the neighborhood to obtain the **areal CO<sub>2</sub> stock** [kg/km<sup>2</sup>] (`areal_stock`) and the **areal CO<sub>2</sub> sequestration** [kg/y/km<sup>2</sup>] (`areal_sequestration`).
 
 
 ## Webapp <a name="webapp"></a>
 
-As mentioned in the [Introduction] section, the MaTREEd web application (available [here](https://gisdevio.github.io/MaTREEd/#/)) acts as a Tree Information System for Madrid neighborhoods offering two main functions: i) visualization of the results achieved by applying the methodology described above, which depicts the current situation in Madrid in terms of carbon stock and sequestration rate; and ii) simulation of the increase in the carbon stock and sequestration rate, in any user-defined scenario where a certain number of trees with specific characteristics are added in a neighborhood.
+As mentioned in the [Introduction to MaTREEd](#introduction) section, the MaTREEd web application (available [here](https://gisdevio.github.io/MaTREEd/#/)) acts as a Tree Information System for Madrid neighborhoods offering two main functions: i) visualization of the results achieved by applying the methodology described above, which depicts the current situation in Madrid in terms of carbon stock and sequestration rate; and ii) simulation of the increase in the carbon stock and sequestration rate, in any user-defined scenario where a certain number of trees with specific characteristics are added in a neighborhood.
 
 The interface of the web application consists of a main map viewer and a layer menu on the right side. The map viewer displays the layer selected in the layer menu (only one layer at a time) on top of the OpenStreetMap basemap. When selected, the layers available in the layer menu show various thematic maps according to the values of the tree summary statistics computed in step 2 of the [Methodology](#methodology) section for each neighborhood, i.e. `tree_density`, `mean_trunk_girth`, `mean_height`, `mean_height`, `mean_crown_diameter` and `tree_coverage`. From the layer menu, the maps of areal carbon stock and areal sequestration rate for each neighborhood, i.e. `areal_stock` and `areal_sequestration`, respectively, are also available. Each of the seven thematic maps is accompanied by its own legend displaying the quantitative intervals of the classes depicted in the map. The selected layer is automatically moved at the top of the layer tree.
 
