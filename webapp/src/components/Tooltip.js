@@ -19,6 +19,10 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
     NOMBRE,
   } = properties;
 
+  if(!tree_tot){
+    return null
+  }
+
   const treeData = [
     ["TREES COUNT", tree_tot],
     ["VALID TREE RECORDS", tree_valid + "%"],
