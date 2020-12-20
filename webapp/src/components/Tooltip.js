@@ -68,8 +68,8 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
       ))}
 
       <p className="disclaimer">
-        Carbon computation are based on approximate equations for demonstration
-        purpose only. Results are not intended for analytical purposes.
+        Carbon computation is based on approximate equations.
+        Results are not intended for analytical purposes.
       </p>
       <button className="blueButton goToSimulator" onClick={openSimulator}>
         Run Simulation

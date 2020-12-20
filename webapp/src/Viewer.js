@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div id="container">
-      <div className="pageName">MaTREEd Viewer</div>
+      <div className="pageName">MaTREEd - Tree Information System for Madrid neighborhoods</div>
       <Legend legendValue={legendValue} setLegendValue={setLegendValue} />
       <Tooltip
         properties={properties}
