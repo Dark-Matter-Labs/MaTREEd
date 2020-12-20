@@ -134,7 +134,8 @@ button.blueButton {
   font-size: small;
   text-align: justify;
   font-style: italic;
-  padding: 8px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 .selectedLegend {
   background: #dddddd;
@@ -200,4 +201,8 @@ margin-bottom:20px;
   float: left;
   margin-top: 6px;
   margin-bottom: 6px;
+}
+.singleRow p {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }

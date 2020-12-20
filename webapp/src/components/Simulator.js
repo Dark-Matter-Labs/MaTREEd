@@ -67,6 +67,7 @@ const Simulator = ({ visible, onClose, properties }) => {
       }
       return diameter_t0 + (-0.5425 + 0.3189 * Math.log(diameter_t0));
     };
+
     const co2_final_conifer =get_co2("evergreen", get_t1(coniferCm)) * coniferNumber;
 
     const co2_final_broadleaf =get_co2("deciduous", get_t1(broadleafCm)) * broadleafNumber;
@@ -180,7 +181,10 @@ const Simulator = ({ visible, onClose, properties }) => {
             </div>
         </div>
       )}
-      <button className="blueButton" onClick={onClose}>
+      <button className="blueButton" onClick={
+          ()=>{onClose(); setSequestration(null)}
+      }
+        >
         Close
       </button>
     </div>
