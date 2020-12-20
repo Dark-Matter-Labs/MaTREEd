@@ -1,9 +1,15 @@
 #container {
   flex: 1;
+  height: 100%;
 }
-
+html, body {
+  height: 100%;
+}
+div#root {
+  height: 100%;
+}
 #mapContainer {
-  height: 100vh;
+  height: calc(100% - 45px);
 }
 
 .tooltip {
