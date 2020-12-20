@@ -62,11 +62,11 @@ const legends = {
     sum_c_stock_n: {
       label: "CO₂ sequestration [kg/y/km²]",
       colorMap: [
-        [38781, '#d7191c'],
-        [8479, '#fdae61'],
-        [5263, '#ffffbf'],
-        [3324, '#abdda4'],
-        [1618, '#2b83ba'],
+        [4040511, '#d7191c'],
+        [1516593, '#fdae61'],
+        [1143824, '#ffffbf'],
+        [814971, '#abdda4'],
+        [423571, '#2b83ba'],
       ],
     },
   };
