@@ -6,6 +6,7 @@ import Legend, { getColorForLegend } from "./components/Legend";
 import Tooltip from "./components/Tooltip";
 import Simulator from "./components/Simulator";
 import legends from "./static/legends";
+import info from "./static/info.png";
 
 const madridCenter = [40.475, -3.7];
 
@@ -29,7 +30,9 @@ const App = () => {
 
   return (
     <div id="container">
-      <div className="pageName">MaTREEd - Tree Information System for Madrid neighborhoods</div>
+      <div className="pageName">MaTREEd - Tree Information System for Madrid neighborhoods
+      <a target='_blank' href='https://github.com/GISdevio/MaTREEd/blob/main/project-description.md'><img className='info' src={info} /></a>
+      </div>
       <Legend legendValue={legendValue} setLegendValue={setLegendValue} />
       <Tooltip
         properties={properties}

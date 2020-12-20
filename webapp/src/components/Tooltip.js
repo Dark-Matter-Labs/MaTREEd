@@ -43,7 +43,7 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>{NOMBRE}</p>
       </div>
       {treeData.map(([name, val]) => (
-        <div className="row" key={name}>
+        <div className="row" key={name+val}>
           <p>{name}</p>
           <p>{val}</p>
         </div>
@@ -52,7 +52,7 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>TREE SPECIES</p>
       </div>
       {treeSpecies.map(([name, val]) => (
-        <div className="row" key={name}>
+        <div className="row" key={name+val}>
           <p>{name}</p>
           <p>{val}%</p>
         </div>
@@ -61,7 +61,7 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
         <p>CO₂ PERFORMANCE</p>
       </div>
       {carbonInfo.map(([name, val]) => (
-        <div className="row" key={name}>
+        <div className="row" key={name+val}>
           <p>{name}</p>
           <p>{val}</p>
         </div>

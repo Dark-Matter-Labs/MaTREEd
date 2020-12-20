@@ -90,7 +90,7 @@ const Simulator = ({ visible, onClose, properties }) => {
     return null;
   }
 
-  const { tree_valid, sum_c_seq, sum_c_stock, NOMBRE } = properties;
+  const { sum_c_seq, sum_c_stock, NOMBRE } = properties;
 
   return (
     <div className="simulator" style={{ height: visible ? "100%" : "0px" }}>
