@@ -2,7 +2,7 @@
   "name": "matreed",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://GISdevio.github.io/MaTREEd",
+  "homepage": "http://dark-matter-labs.github.io/MaTREEd",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
