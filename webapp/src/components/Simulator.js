@@ -188,6 +188,18 @@ const Simulator = ({ visible, onClose, properties }) => {
             <p className='resultName'>Increase of CO₂ sequestration</p>
             <p className='resultVal'>{Math.round(sequestration/sum_c_seq*100*100)/100} %</p>
             </div>
+            <div className="row">
+            <p className='resultName'>Total simulated CO₂ stock in tonnes</p>
+            <p className='resultVal'>{Math.round(sum_c_stock+co2Initial) / 1000} tonnes</p>
+            </div>
+            <div className="row">
+            <p className='resultName'>Total carbon calculation with current pricing (25$tn)</p>
+            <p className='resultVal'>${(Math.round(sum_c_stock+co2Initial) / 1000)*25}</p>
+            </div>
+            <div className="row">
+            <p className='resultName'>Total carbon calculation with future pricing (50$tn)</p>
+            <p className='resultVal'>${(Math.round(sum_c_stock+co2Initial) / 1000)*50}</p>
+            </div>
         </div>
       )}
       <button className="blueButton" onClick={
