@@ -194,11 +194,11 @@ const Simulator = ({ visible, onClose, properties }) => {
             </div>
             <div className="row">
             <p className='resultName'>Total carbon calculation with current pricing (25$tn)</p>
-            <p className='resultVal'>${(Math.round(sum_c_stock+co2Initial) / 1000)*25}</p>
+            <p className='resultVal'>${Math.round((Math.round(sum_c_stock+co2Initial) / 1000)*25)}</p>
             </div>
             <div className="row">
             <p className='resultName'>Total carbon calculation with future pricing (50$tn)</p>
-            <p className='resultVal'>${(Math.round(sum_c_stock+co2Initial) / 1000)*50}</p>
+            <p className='resultVal'>${Math.round((Math.round(sum_c_stock+co2Initial) / 1000)*50)}</p>
             </div>
         </div>
       )}
