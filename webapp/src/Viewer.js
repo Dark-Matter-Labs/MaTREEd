@@ -19,7 +19,7 @@ const App = () => {
 
   const left = tooltipVisible ? "0px" : "-100%";
 
-  let totalCO2stock = 0, totalCO2seq = 0;
+  let totalCO2stock = 0, totalCO2seq = 0, totalTrees = 0;
 
   const getStyle = (val, colorMap) => ({
     fillColor: getColorForLegend(val, colorMap),
@@ -34,6 +34,7 @@ const App = () => {
     data.features.map(x => {
       totalCO2stock+= x.properties.sum_c_stock;
       totalCO2seq+= x.properties.sum_c_seq;
+      totalTrees+= x.properties.tree_tot;
     });
   }
 
@@ -45,8 +46,9 @@ const App = () => {
       <a target='_blank' href='https://github.com/GISdevio/MaTREEd/blob/main/project-description.md'><img className='info' src={info} /></a>
       </div>
       <Legend legendValue={legendValue} setLegendValue={setLegendValue} />
-      Total CO₂ stock: {Math.round(totalCO2stock)} kg <br />
-      Total CO₂ sequestration: {Math.round(totalCO2seq)} kg/y
+      Total Trees: {new Intl.NumberFormat().format(Math.round(totalTrees))}<br />
+      Total CO₂ stock: {new Intl.NumberFormat().format(Math.round(totalCO2stock))} kg <br />
+      Total CO₂ sequestration: {new Intl.NumberFormat().format(Math.round(totalCO2seq))} kg/y
       <Tooltip
         properties={properties}
         style={{ left: left }}
