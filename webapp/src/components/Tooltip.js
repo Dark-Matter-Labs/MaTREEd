@@ -38,8 +38,8 @@ const Tooltip = ({ closeTooltip, style, properties, openSimulator }) => {
   ];
 
   const carbonInfo = [
-    ["CO₂ stock ", Math.round(sum_c_stock)+ " kg"],
-    ["CO₂ sequestration", Math.round(sum_c_seq)+ " kg/y"],
+    ["CO₂ stock ", new Intl.NumberFormat().format(Math.round(sum_c_stock))+ " kg"],
+    ["CO₂ sequestration", new Intl.NumberFormat().format(Math.round(sum_c_seq))+ " kg/y"],
   ];
   return (
     <div style={style} className="tooltip">
