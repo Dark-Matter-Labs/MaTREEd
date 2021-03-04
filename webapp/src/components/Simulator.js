@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 const Simulator = ({ visible, onClose, properties }) => {
   const [coniferNumber, setConiferNumber] = useState(0);
   const [broadleafNumber, setBroadleafNumber] = useState(0);
+  const [carbonPrice, setCarbonPrice] = useState(0);
   const [co2Initial, setCo2Initial] = useState(0);
 
   const [coniferCm, setConiferCm] = useState('');
@@ -23,6 +24,14 @@ const Simulator = ({ visible, onClose, properties }) => {
       setBroadleafNumber(value);
     }else{
         setBroadleafNumber('');
+    }
+  };
+  const changeCarbonPrice = (event) => {
+    const value = Number(event.target.value) || null;
+    if (Number.isInteger(value)) {
+      setCarbonPrice(value);
+    }else{
+      setCarbonPrice('');
     }
   };
 
@@ -84,7 +93,7 @@ const Simulator = ({ visible, onClose, properties }) => {
     if(sequestrationValue){
     setSequestration(sequestrationValue);
     }
-  }, [coniferNumber, broadleafNumber, coniferCm, broadleafCm]);
+  }, [coniferNumber, broadleafNumber, coniferCm, broadleafCm, carbonPrice]);
 
   if (!properties) {
     return null;
@@ -150,55 +159,63 @@ const Simulator = ({ visible, onClose, properties }) => {
                 />
               </td>
             </tr>
+            <tr>
+              <td>Carbon price in €</td>
+              <td>
+                <input
+                  type="number"
+                  placeholder="number"
+                  name="carbonPrice"
+                  value={carbonPrice}
+                  onChange={changeCarbonPrice}
+                />
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
-      {sequestration && !isNaN(sequestration) && (!isNaN(coniferNumber) || !isNaN(broadleafNumber)) && (
+      {sequestration && !isNaN(sequestration) && !isNaN(carbonPrice) && (!isNaN(coniferNumber) || !isNaN(broadleafNumber)) && (
         <div className='resultName'>
             <div className="row">
             <p className='resultName'>Current CO₂ stock</p>
-            <p className='resultVal'>{Math.round(sum_c_stock)} kg</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sum_c_stock))} kg</p>
             </div>
             <div className="row">
             <p className='resultName'>Additional simulated CO₂ stock</p>
-            <p className='resultVal'>{Math.round(co2Initial)} kg</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(co2Initial))} kg</p>
             </div>
             <div className="row">
             <p className='resultName'>Total simulated CO₂ stock</p>
-            <p className='resultVal'>{Math.round(sum_c_stock+co2Initial)} kg</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sum_c_stock+co2Initial))} kg</p>
             </div>
             <div className="row">
             <p className='resultName'>Increase of CO₂ stock</p>
-            <p className='resultVal'>{Math.round(co2Initial/sum_c_stock * 100 *100)/100} %</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(co2Initial/sum_c_stock * 100 *100)/100)} %</p>
             </div>
             
             <div className="row">
             <p className='resultName'>Current CO₂ sequestration</p>
-            <p className='resultVal'>{Math.round(sum_c_seq)} kg/y</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sum_c_seq))} kg/y</p>
              </div>
             <div className="row">
             <p className='resultName'>Additional simulated CO₂ sequestration</p>
-            <p className='resultVal'>{Math.round(sequestration)} kg/y</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sequestration))} kg/y</p>
             </div>
             <div className="row">
             <p className='resultName'>Total simulated CO₂ sequestration</p>
-            <p className='resultVal'>{Math.round(sequestration+sum_c_seq)} kg/y</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sequestration+sum_c_seq))} kg/y</p>
             </div>
             <div className="row">
             <p className='resultName'>Increase of CO₂ sequestration</p>
-            <p className='resultVal'>{Math.round(sequestration/sum_c_seq*100*100)/100} %</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sequestration/sum_c_seq*100*100)/100)} %</p>
             </div>
             <div className="row">
             <p className='resultName'>Total simulated CO₂ stock in tonnes</p>
-            <p className='resultVal'>{Math.round(sum_c_stock+co2Initial) / 1000} tonnes</p>
+            <p className='resultVal'>{new Intl.NumberFormat().format(Math.round(sum_c_stock+co2Initial) / 1000)} tonnes</p>
             </div>
             <div className="row">
-            <p className='resultName'>Total carbon calculation with current pricing (25$tn)</p>
-            <p className='resultVal'>${Math.round((Math.round(sum_c_stock+co2Initial) / 1000)*25)}</p>
-            </div>
-            <div className="row">
-            <p className='resultName'>Total carbon calculation with future pricing (50$tn)</p>
-            <p className='resultVal'>${Math.round((Math.round(sum_c_stock+co2Initial) / 1000)*50)}</p>
+            <p className='resultName'>Total carbon calculation with current pricing</p>
+            <p className='resultVal'>€{new Intl.NumberFormat().format(Math.round((Math.round(sum_c_stock+co2Initial) / 1000)*carbonPrice))}</p>
             </div>
         </div>
       )}
@@ -206,6 +223,7 @@ const Simulator = ({ visible, onClose, properties }) => {
           ()=>{onClose(); 
             setConiferNumber(0);
             setBroadleafNumber(0);
+            setCarbonPrice(0);
             setCo2Initial(0);
             setConiferCm('');
             setBroadleafCm('');
