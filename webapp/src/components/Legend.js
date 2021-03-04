@@ -15,7 +15,7 @@ const Legend = ({ legendValue, setLegendValue }) => {
         {colorMap?.map((item, index) => (
           <div key={index}>
             <div className="legendVal">
-              {`${colorMap[len-index + 1-1]?.[0] || 0}-${colorMap[len-index-1][0]}`}
+              {`${new Intl.NumberFormat().format(colorMap[len-index + 1-1]?.[0] || 0)}-${new Intl.NumberFormat().format(colorMap[len-index-1][0])}`}
             </div>
             <div
               className="legendColor"
